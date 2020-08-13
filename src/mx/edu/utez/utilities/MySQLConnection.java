@@ -7,7 +7,7 @@ public class MySQLConnection {
     //Lugar de conexión Local
     private static String ipAddress = "localhost";
     //Base de datos
-    private static String dbName = "guiabd";
+    private static String dbName = "halcon";
     //Usuario en Mysql
     private static String user = "root";
     //Contraseña en Mysql
