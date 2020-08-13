@@ -34,7 +34,18 @@ public class CategoriaDao extends Dao  implements DaoInterface<CategoriaBean> {
 
     @Override
     public boolean update(CategoriaBean obj) {
-        return false;
+        mySQLRepository(REPOSITORY,"categoriaUpdate");
+        try {
+            preparedStatement.setString(1,obj.getNombre());
+            preparedStatement.setInt(2,obj.getId());
+            status = preparedStatement.executeUpdate() == 1;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            status = false;
+        } finally {
+            closeAllConnections();
+        }
+        return status;
     }
 
     @Override
@@ -44,7 +55,7 @@ public class CategoriaDao extends Dao  implements DaoInterface<CategoriaBean> {
         try {
             resultSet = preparedStatement.executeQuery();
             CategoriaDao categoriaDao = new CategoriaDao();
-            if (resultSet.next()){
+            while (resultSet.next()){
                 list.add(categoriaDao.findOne(resultSet.getInt("idcategoria")));
             }
         } catch (SQLException throwables) {
@@ -76,6 +87,10 @@ public class CategoriaDao extends Dao  implements DaoInterface<CategoriaBean> {
     }
 
     public static void main(String[] args) {
-
+CategoriaDao categoriaDao = new CategoriaDao();
+      //  System.out.println(categoriaDao.findOne(""));
+        for (CategoriaBean categoriaDac1 : categoriaDao.findAll()){
+            System.out.println(categoriaDac1);
+        }
     }
 }

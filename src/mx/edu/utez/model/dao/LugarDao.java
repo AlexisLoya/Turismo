@@ -50,7 +50,7 @@ public class LugarDao extends Dao implements DaoInterface<LugarBean> {
         try {
             resultSet = preparedStatement.executeQuery();
             LugarDao lugarDao = new LugarDao();
-            if (resultSet.next()){
+            while (resultSet.next()){
                 list.add(lugarDao.findOne(resultSet.getInt("idlugar")));
             }
         } catch (SQLException throwables) {
@@ -87,6 +87,6 @@ public class LugarDao extends Dao implements DaoInterface<LugarBean> {
     }
 
     public static void main(String[] args) {
-        
+
     }
 }

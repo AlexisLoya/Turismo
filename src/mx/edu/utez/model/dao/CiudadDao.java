@@ -1,9 +1,8 @@
 package mx.edu.utez.model.dao;
-
 import mx.edu.utez.model.Dao;
 import mx.edu.utez.model.DaoInterface;
+import mx.edu.utez.model.bean.CategoriaBean;
 import mx.edu.utez.model.bean.CiudadBean;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -12,7 +11,7 @@ public class CiudadDao extends Dao implements DaoInterface<CiudadBean> {
     @Override
     public int add(CiudadBean obj) {
         mySQLRepository(REPOSITORY,"ciudadAdd");
-        try {
+        try{
             preparedStatement.setString(1,obj.getNombre());
             preparedStatement.executeUpdate();
             resultSet = preparedStatement.getGeneratedKeys();
@@ -63,7 +62,7 @@ public class CiudadDao extends Dao implements DaoInterface<CiudadBean> {
       ArrayList<CiudadBean> list = new ArrayList<>();
         try {
             resultSet= preparedStatement.executeQuery();
-            if (resultSet.next()){
+            while (resultSet.next()){
                 list.add(new CiudadDao().findOne(resultSet.getInt("idciudad")));
             }
         } catch (SQLException throwables) {
@@ -76,7 +75,7 @@ public class CiudadDao extends Dao implements DaoInterface<CiudadBean> {
 
     @Override
     public CiudadBean findOne(int id) {
-        mySQLRepository(REPOSITORY,"cuidadFindOne");
+        mySQLRepository(REPOSITORY,"ciudadFindOne");
         CiudadBean ciudadBean = null;
         try {
             preparedStatement.setInt(1,id);
@@ -87,7 +86,6 @@ public class CiudadDao extends Dao implements DaoInterface<CiudadBean> {
                         resultSet.getString("nombre")
                 );
             }
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {
@@ -97,6 +95,11 @@ public class CiudadDao extends Dao implements DaoInterface<CiudadBean> {
     }
 
     public static void main(String[] args) {
-        
+        CiudadDao ciudadDao = new CiudadDao();
+        CiudadBean ciudadBean  = new CiudadBean(0,"Quintana Roo");
+        System.out.println(ciudadDao.findOne(1));
+        for (CiudadBean ciudadBean1: ciudadDao.findAll()) {
+            System.out.println(ciudadBean1);
+        }
     }
 }
