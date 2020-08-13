@@ -21,6 +21,7 @@ public abstract class Dao {
     /**
      * Inicia los recursos necesarios para realizar una consulta a la base de datos
      * @param databaseActivity sentencia sql guardada en el archivo MySQLRepository.properties
+     * @param repository nombre del achivo .properties
      */
     protected void mySQLRepository(String repository, String databaseActivity) {
         try {
